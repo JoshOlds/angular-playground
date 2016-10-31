@@ -18,10 +18,19 @@
 
     this.name = 'My BɼokƏn Cart!'
 
-    this.getCartCount = function () {
+    this.getCount = function () {
       // return the length of our cart
+      return this.cart.length;
     }
 
+
+    this.calculateCartTotal = function(){
+      var total = 0;
+      this.cart.forEach(item => {
+        total += (item.price * item.quantity);
+      })
+      return total;
+    }
     /*
     * Write a calculateCartTotal function
     * make it assesible to our view
@@ -32,7 +41,10 @@
 
     this.removeItemFromCart = function (item) {
       // Item gets passed in from our view when the user clicks the x button
-
+      var index = this.cart.indexOf(item);
+      if (index > -1) {
+        this.cart.splice(index, 1);
+      }
       /*
       * This function should be able to remove the passed in item
       * from our cart. You will have to first identify where the passed
@@ -43,7 +55,16 @@
 
     this.addItemToCart = function (item) {
       // item gets passed in to this function from the view
+      var newItem = {};
 
+      newItem.name = item.name;
+      newItem.color = item.selectedColor;
+      newItem.size = item.selectedSize
+      newItem.quantity = 1;
+      newItem.price = item.price;
+
+      this.cart.push(newItem);
+      //newItem.color = item.
       /*
       *Our cart demands that items being added to it must have the following properties
       *var newItem = {
